@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SMA N 1 Sungailiat | <?= $title ?></title>
+    <title>Your Courses | <?= $title ?></title>
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="<?= base_url('assets/') ?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url('assets/') ?>css/plugins/dataTables/datatables.min.css" rel="stylesheet">

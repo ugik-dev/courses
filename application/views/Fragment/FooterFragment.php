@@ -8,10 +8,10 @@
 		<strong>Copyright</strong> &copy; 2020 || cc : ugik.dev@gmail.com || +62 812 7974 8967
 	</div>
 </div> -->
-</div>
+<!-- </div> -->
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function() {
 		$('#tmtdate .input-group.date').datepicker({
 			todayBtn: "linked",
@@ -30,7 +30,7 @@
 			format: "yyyy-mm-dd"
 		});
 	});
-</script>
+</script> -->
 
 
 <!-- Mainly scripts -->
