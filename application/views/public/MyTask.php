@@ -20,7 +20,7 @@
                         <table id="FDataTable" class="table table-bordered table-hover" style="padding:0px">
                             <thead>
                                 <tr>
-                                    <th style="width: 15%; text-align:center!important">Date Session</th>
+                                    <th style="width: 15%; text-align:center!important">Avaliable time</th>
                                     <th style="width: 12%; text-align:center!important">Name</th>
                                     <th style="width: 12%; text-align:center!important">Mapel</th>
                                     <th style="width: 7%; text-align:center!important">Action</th>
@@ -43,9 +43,9 @@
                         <table id="FDataTable2" class="table table-bordered table-hover" style="padding:0px">
                             <thead>
                                 <tr>
-                                    <th style="width: 15%; text-align:center!important">Date Session</th>
-                                    <th style="width: 12%; text-align:center!important">Name</th>
-                                    <th style="width: 12%; text-align:center!important">Mapel</th>
+                                    <th style="width: 15%; text-align:center!important">Name Exam</th>
+                                    <th style="width: 12%; text-align:center!important">Score</th>
+                                    <th style="width: 12%; text-align:center!important">Date</th>
                                     <th style="width: 7%; text-align:center!important">Action</th>
                                 </tr>
                             </thead>
@@ -87,7 +87,7 @@
             'columnDefs': [],
             deferRender: true,
             "order": [
-                [0, "desc"]
+                [2, "desc"]
             ]
         });
 
@@ -206,7 +206,7 @@
                 var button = `
                     <a class="btn btn-primary" href='<?= base_url() ?>my-task/${bank_soal['token']}'><i class='fa fa-arrow-circle-right '></i>  </a>
                 `;
-                renderData2.push(['From :' + bank_soal['open_start'] + '<br> To : ' + bank_soal['open_start'], "Sroce : " + bank_soal['score'] + '<br> Benar : ' + bank_soal['benar'], 'Jumlah Soal : ' + bank_soal['limit_soal'] + ' soal<br> Waktu Pengerjaan : ' + bank_soal['limit_time'] + ' menit', button]);
+                renderData2.push([bank_soal['name_session_exam'], "Sroce : " + bank_soal['score'] + '<br> Benar : ' + bank_soal['benar'], bank_soal['start_time'], button]);
             });
             FDataTable2.clear().rows.add(renderData2).draw('full-hold');
         }
@@ -226,7 +226,7 @@
                 var button = `
                     <button class="create btn btn-primary" data-id='${bank_soal['id_session_exam']}'><i class='fa fa-arrow-circle-right '></i> Start Exam </button>
                 `;
-                renderData.push(['From :' + bank_soal['open_start'] + '<br> To : ' + bank_soal['open_start'], bank_soal['nama_mapel'] + " :: " + bank_soal['name_session_exam'], 'Jumlah Soal : ' + bank_soal['limit_soal'] + ' soal<br> Waktu Pengerjaan : ' + bank_soal['limit_time'] + ' menit', button]);
+                renderData.push(['From :' + bank_soal['open_start'] + '<br> To : ' + bank_soal['open_start'], bank_soal['nama_mapel'] + " :: " + bank_soal['name_session_exam'], 'Jumlah Soal : ' + bank_soal['limit_soal'] + ' soal<br> Waktu Pengerjaan : ' + bank_soal['limit_time'] + ' menit' + '<br>' + (bank_soal['poin_mode'] == 'avg' ? 'Akumulasi maksimum score 100' : 'Poin Mode: benar x ' + bank_soal['poin_mode']), button]);
             });
             FDataTable.clear().rows.add(renderData).draw('full-hold');
         }

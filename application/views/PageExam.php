@@ -28,11 +28,16 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                         <?php
                         $i = 0;
                         foreach ($data_soal as $ds) {
-                            echo '<div class="tab-pane fade" id="soal_' . $i . '" role="tabpanel" aria-labelledby="pills-home-tab"><div class="ibox-content"><strong>' . ($i + 1) . '. ' . $ds['soal']['soal'] . $ans[$i] . '</strong>
-                                <br><br>';
+                            echo '<div class="tab-pane fade" id="soal_' . $i . '" role="tabpanel" aria-labelledby="pills-home-tab"><div class="ibox-content"><strong>
+                            ' . ($i + 1) . '. ' . str_replace("\r\n", '<br>', $ds['soal']['soal']) . '
+                               </strong> <br><br>';
                             foreach ($ds['opsi'] as $ops) {
+                                if (strval($ops['token_opsi']) == strval($ans[$i])) {
+                                    $checked = 'checked';
+                                } else
+                                    $checked = '';
                                 echo '<div class="form-check">
-                                    <input class="form-check-input" type="radio" data-row="' . $i . '" name="row_' . $i . '" id="' . $ops['token_opsi'] . '" value="' . $ops['token_opsi'] . '" ' . ($ops['token_opsi'] == $ans[$i] ? 'checked' : '') . '>
+                                    <input class="form-check-input" type="radio" data-row="' . $i . '" name="row_' . $i . '" id="' . $ops['token_opsi'] . '" value="' . $ops['token_opsi'] . '" ' . $checked . '>
                                     <label class="form-check-label" for="exampleRadios1">
                                     ' . $ops['name_opsi'] . '
                                     </label>
@@ -44,7 +49,7 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                         }
                         echo '<input type="hidden" value="' . $i . '" name="count">';
                         ?>
-                        <input name="autosave" id="autosave" value="true">
+                        <input name="autosave" type="hidden" id="autosave" value="true">
                         <button class="btn btn-success my-1 mr-sm-2" type="submit" id="add_btn" data-loading-text="Loading..."><strong>Selesai</strong></button>
 
                     </div>

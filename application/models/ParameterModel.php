@@ -20,10 +20,10 @@ class ParameterModel extends CI_Model
 		$count = count($ans);
 
 
-		if ($data['point_mode'] == 'avg')
+		if ($data['poin_mode'] == 'avg')
 			$score = $benar / $count * 100;
 		else
-			$score = $benar * $data['point_mode'];
+			$score = $benar * $data['poin_mode'];
 
 		$this->db->set('score', $score);
 		$this->db->set('benar', $benar);
@@ -50,7 +50,7 @@ class ParameterModel extends CI_Model
 
 	public function getExam($filter)
 	{
-		$this->db->select("u.* ,(limit_time + 1 ) as limit_time");
+		$this->db->select("u.* ,(limit_time + 1 ) as limit_time, poin_mode");
 		$this->db->from('session_exam_user as u');
 		$this->db->join('session_exam as r', 'r.id_session_exam = u.id_session_exam');
 		// $this->db->join('kabupaten as k', 'k.id_kabupaten = u.id_kabupaten','left');
@@ -110,7 +110,7 @@ class ParameterModel extends CI_Model
 		$this->db->select("u.soal, u.image");
 		$this->db->from('bank_soal as u');
 		if ($jawabn) {
-			$this->db->select("token_opsi,name_opsi");
+			$this->db->select("token_opsi,name_opsi,pembahasan,pembahasan_img");
 			$this->db->join('bank_opsi as k', 'k.id_bank_soal = u.id_bank_soal', 'left');
 			$this->db->where('k.status', 'Y');
 		}

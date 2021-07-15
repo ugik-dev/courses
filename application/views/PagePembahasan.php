@@ -25,11 +25,17 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                         <?php
                         $i = 0;
                         foreach ($data_soal as $ds) {
-                            echo '<div class="tab-pane fade" id="soal_' . $i . '" role="tabpanel" aria-labelledby="pills-home-tab"><div class="ibox-content"><strong>' . ($i + 1) . '. ' . $ds['soal']['soal'] . '</strong>
-                                <br><br>';
+                            echo '<div class="tab-pane fade" id="soal_' . $i . '" role="tabpanel" aria-labelledby="pills-home-tab"><div class="ibox-content"><strong>
+                            ' . ($i + 1) . '. ' . str_replace("\r\n", '<br>', $ds['soal']['soal']) . '
+                               </strong> <br><br>';
                             foreach ($ds['opsi'] as $ops) {
+                                if (strval($ops['token_opsi']) == strval($ans[$i])) {
+                                    $checked = 'checked';
+                                } else
+                                    $checked = '';
+
                                 echo '<div class="form-check">
-                                    <input class="form-check-input" disabled="disabled" type="radio" data-row="' . $i . '" name="row_' . $i . '" id="' . $ops['token_opsi'] . '" value="' . $ops['token_opsi'] . '" ' . ($ops['token_opsi'] == $ans[$i] ? 'checked' : '') . '>
+                                    <input class="form-check-input" disabled="disabled" type="radio" data-row="' . $i . '" name="row_' . $i . '" id="' . $ops['token_opsi'] . '" value="' . $ops['token_opsi'] . '" ' .  $checked . '>
                                     <label class="form-check-label" for="exampleRadios1">
                                     ' . $ops['name_opsi'] . '
                                     </label>
@@ -38,7 +44,7 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                             }
                             echo '<br><br>
                             Jawaban : ' . $ds['soal']['name_opsi'] . '
-                            <br>Pembahasan : <br>
+                            <br>Pembahasan : <br>' . $ds['soal']['pembahasan'] . ' 
                             </div></div>';
                             $i++;
                         }
