@@ -1,8 +1,8 @@
 # /assets/*
-# !/upload/pembahasan_img
-/upload/image/*
-!/upload/image/
 /upload/pembahasan_img/*
+!/upload/pembahasan_img/stay.txt
+/upload/image/*
+!/upload/image/stay.txt
 /upload/sk/*
 /uploads/sk/*
 /uploads/bukti/*
