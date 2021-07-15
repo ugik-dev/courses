@@ -458,7 +458,7 @@ class PublicController extends CI_Controller
     // $this->load->libraries('email');
     $this->email->initialize($send['config']);
     $this->email->set_mailtype("html");
-    $this->email->from('Your Courses');
+    $this->email->from($serv['username']);
     $this->email->to($send['to']);
     $this->email->subject($send['subject']);
     $this->email->message($send['message']);
