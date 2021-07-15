@@ -303,6 +303,9 @@ class AdminController extends CI_Controller
 
     $this->SecurityModel->roleOnlyGuard('admin');
     $data = $this->input->post();
+    $data['pembahasan_img'] = FileIO::genericUpload('pembahasan_img', array('png', 'jpeg', 'jpg', 'pdf'), '', $data);
+    $data['image'] = FileIO::genericUpload('image', array('png', 'jpeg', 'jpg', 'pdf'), '', $data);
+
     $id = $this->AdminModel->addBankSoal($data);
     $data = $this->ParameterModel->getAllBankSoal(array('id_bank_soal' => $id))[$id];
     echo json_encode(array('data' => $data));
@@ -314,10 +317,21 @@ class AdminController extends CI_Controller
 
     $this->SecurityModel->roleOnlyGuard('admin');
     $data = $this->input->post();
+    if (empty($data['pembahasan_imgFilename'])) {
+      unset($data['pembahasan_img']);
+    } else {
+      $data['pembahasan_img'] = FileIO::genericUpload('pembahasan_img', array('png', 'jpeg', 'jpg', 'pdf'), '', $data);
+    }
+
+    if (empty($data['imageFilename'])) {
+      unset($data['image']);
+    } else {
+      $data['image'] = FileIO::genericUpload('image', array('png', 'jpeg', 'jpg', 'pdf'), '', $data);
+    }
+
     $this->AdminModel->editBankSoal($data);
-    $data = $this->ParameterModel->getAllSession(array('id_bank_soal' => $data['id_bank_soal']))[$data['id_bank_soal']];
+    $data = $this->ParameterModel->getAllBankSoal(array('id_bank_soal' => $data['id_bank_soal']))[$data['id_bank_soal']];
     echo json_encode(array('data' => $data));
-    // $this->load->view('admin/Pdfallsaranaprasarana', $pageData);
   }
 
 

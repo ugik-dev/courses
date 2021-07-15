@@ -58,6 +58,13 @@
                         <label for="nama">Soal</label>
                         <textarea type="text" placeholder="" class="form-control" id="soal" name="soal" required="required"></textarea>
                     </div>
+                    <div class="form-group" id="">
+                        <label for="image">File Soal (img/pdf)</label>
+                        <p class="no-margins"><span id="image">-</span></p>
+                    </div>
+                    <div class="form-group" id="">
+                        <p class="no-margins"><span id="frm_img">-</span></p>
+                    </div>
                     <div class="form-group">
                         <label for="password">Jawaban</label>
                         <input type="hidden" id="id_jawaban" name="id_jawaban">
@@ -90,6 +97,13 @@
                         <textarea type="text" placeholder="" class="form-control" id="pembahasan" name="pembahasan" required="required"></textarea>
                     </div>
 
+                    <div class="form-group" id="task_dokumen_form">
+                        <label for="pembahasan_img">File Pembahasan (img/pdf)</label>
+                        <p class="no-margins"><span id="pembahasan_img">-</span></p>
+                    </div>
+                    <div class="form-group" id="">
+                        <p class="no-margins"><span id="frm_pembahasan">-</span></p>
+                    </div>
                     <button class="btn btn-success my-1 mr-sm-2" type="submit" id="add_btn" data-loading-text="Loading..." onclick="this.form.target='add'"><strong>Tambah Data</strong></button>
                     <button class="btn btn-success my-1 mr-sm-2" type="submit" id="save_edit_btn" data-loading-text="Loading..." onclick="this.form.target='edit'"><strong>Simpan Perubahan</strong></button>
                 </form>
@@ -137,10 +151,11 @@
             'jawaban': $('#bank_soal_modal').find('#jawaban'),
             'opsi_1': $('#bank_soal_modal').find('#opsi_1'),
             'pembahasan': $('#bank_soal_modal').find('#pembahasan'),
-            'repassword': $('#bank_soal_modal').find('#repassword'),
-            'tahun_masuk': $('#bank_soal_modal').find('#tahun_masuk'),
-            'deskripsi': $('#bank_soal_modal').find('#deskripsi'),
-            'kabupaten': $('#bank_soal_modal').find('#kabupaten'),
+            'frm_pembahasan': $('#bank_soal_modal').find('#frm_pembahasan'),
+            'frm_img': $('#bank_soal_modal').find('#frm_img'),
+            'pembahasan_img': new FileUploader($('#bank_soal_modal').find('#pembahasan_img'), "", "pembahasan_img", ".png , .pdf , .jpg , .jpeg , .pdf ", false, true),
+            'image': new FileUploader($('#bank_soal_modal').find('#image'), "", "image", ".png , .pdf , .jpg , .jpeg , .pdf ", false, true),
+
         }
 
         getAllMapel();
@@ -325,6 +340,16 @@
                         }
 
                     })
+                    if (bank_soal['pembahasan_img'])
+                        Kelolahbank_soalModal.frm_pembahasan.html('<img src="<?= base_url() ?>upload/pembahasan_img/' + bank_soal['pembahasan_img'] + '">')
+                    else
+                        Kelolahbank_soalModal.frm_pembahasan.html('No File')
+                    if (bank_soal['image'])
+                        Kelolahbank_soalModal.frm_img.html('<img src="<?= base_url() ?>upload/image/' + bank_soal['image'] + '">')
+                    else
+                        Kelolahbank_soalModal.frm_img.html('')
+
+
                     Kelolahbank_soalModal.self.modal('show');
                 },
                 error: function(e) {}
@@ -365,6 +390,8 @@
             Kelolahbank_soalModal.saveEditBtn.hide();
             Kelolahbank_soalModal.form.trigger('reset');
             Kelolahbank_soalModal.id_mapel.val(toolbar.id_mapel.val());
+            Kelolahbank_soalModal.frm_img.html('')
+            Kelolahbank_soalModal.frm_pembahasan.html('')
         }
 
         Kelolahbank_soalModal.form.submit(function(event) {
@@ -388,7 +415,11 @@
                 $.ajax({
                     url: `<?= site_url('AdminController/addBankSoal') ?>`,
                     'type': 'POST',
-                    data: Kelolahbank_soalModal.form.serialize(),
+                    data:
+                        // Kelolahbank_soalModal.form.serialize(),
+                        new FormData(Kelolahbank_soalModal.form[0]),
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         buttonIdle(Kelolahbank_soalModal.addBtn);
                         var json = JSON.parse(data);
@@ -416,7 +447,9 @@
                 $.ajax({
                     url: `<?= site_url('AdminController/editBankSoal') ?>`,
                     'type': 'POST',
-                    data: Kelolahbank_soalModal.form.serialize(),
+                    data: new FormData(Kelolahbank_soalModal.form[0]),
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         buttonIdle(Kelolahbank_soalModal.saveEditBtn);
                         var json = JSON.parse(data);

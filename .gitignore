@@ -1,4 +1,9 @@
 # /assets/*
+!/upload/pembahasan_img
+!/upload/image
+/upload/pembahasan_img/*
+/upload/image/*
+/upload/sk/*
 /uploads/sk/*
 /uploads/bukti/*
 /uploads/proposal/*
