@@ -6,7 +6,7 @@
 
 
 <div class="container">
-   
+
     <div class="wrapperwrapper-content animated fadeInRight">
         <div class="ibox section-container">
             <div class="ibox-content">
@@ -191,7 +191,7 @@
 <script>
     $(document).ready(function() {
         // $('#Mapping').addClass('active');
-         $('#forum_saya').addClass('active');
+        $('#forum_saya').addClass('active');
         var id_mapping_kelas = "<?= $contentData['id_mapping_kelas'] ?>";
         var me = "<?= $this->session->userdata('id_user') ?>";
         var id_mapping = "<?= $contentData['id_mapping'] ?>";
