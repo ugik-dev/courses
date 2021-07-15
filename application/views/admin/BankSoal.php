@@ -48,7 +48,7 @@
             </div>
             <div class="modal-body" id="modal-body">
                 <form role="form" id="bank_soal_form" onsubmit="return false;" type="multipart" autocomplete="off">
-                    <input type="" id="id_bank_soal" name="id_bank_soal">
+                    <input type="hidden" id="id_bank_soal" name="id_bank_soal">
 
                     <div class="form-group">
                         <label for="nama">Mata Pelajaran</label>
@@ -60,30 +60,34 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Jawaban</label>
-                        <input type="" id="id_jawaban" name="id_jawaban">
+                        <input type="hidden" id="id_jawaban" name="id_jawaban">
                         <textarea type="text" placeholder="" class="form-control" id="jawaban" name="jawaban" required="required"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="password">Opsi Peralihan 1</label>
-                        <input type="" id="id_opsi_1" name="id_opsi_1">
+                        <input type="hidden" id="id_opsi_1" name="id_opsi_1">
 
                         <textarea type="text" placeholder="" class="form-control" id="opsi_1" name="opsi_1" required="required"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="password">Opsi Peralihan 2</label>
-                        <input type="" id="id_opsi_2" name="id_opsi_2">
+                        <input type="hidden" id="id_opsi_2" name="id_opsi_2">
                         <textarea type="text" placeholder="" class="form-control" id="opsi_2" name="opsi_2" required="required"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="password">Opsi Peralihan 3</label>
-                        <input type="" id="id_opsi_3" name="id_opsi_3">
+                        <input type="hidden" id="id_opsi_3" name="id_opsi_3">
                         <textarea type="text" placeholder="" class="form-control" id="opsi_3" name="opsi_3" required="required"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="password">Opsi Peralihan 4</label>
-                        <input type="" id="id_opsi_4" name="id_opsi_4">
+                        <input type="hidden" id="id_opsi_4" name="id_opsi_4">
                         <textarea type="text" placeholder="" class="form-control" id="opsi_4" name="opsi_4" required="required"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Pembahasan</label>
+                        <textarea type="text" placeholder="" class="form-control" id="pembahasan" name="pembahasan" required="required"></textarea>
                     </div>
 
                     <button class="btn btn-success my-1 mr-sm-2" type="submit" id="add_btn" data-loading-text="Loading..." onclick="this.form.target='add'"><strong>Tambah Data</strong></button>
@@ -120,16 +124,7 @@
             ]
         });
 
-        var ResetModal = {
-            'self': $('#reset_modal'),
-            'info': $('#reset_modal').find('.info'),
-            'form': $('#reset_modal').find('#reset_form'),
-            'addBtn': $('#reset_modal').find('#add_btn'),
-            'saveEditBtn': $('#reset_modal').find('#save_edit_btn'),
-            'id_bank_soal': $('#reset_modal').find('#id_bank_soal'),
-            'password': $('#reset_modal').find('#password'),
-            'repassword': $('#reset_modal').find('#repassword'),
-        }
+
         var Kelolahbank_soalModal = {
             'self': $('#bank_soal_modal'),
             'info': $('#bank_soal_modal').find('.info'),
@@ -141,7 +136,7 @@
             'soal': $('#bank_soal_modal').find('#soal'),
             'jawaban': $('#bank_soal_modal').find('#jawaban'),
             'opsi_1': $('#bank_soal_modal').find('#opsi_1'),
-            'password': $('#bank_soal_modal').find('#password'),
+            'pembahasan': $('#bank_soal_modal').find('#pembahasan'),
             'repassword': $('#bank_soal_modal').find('#repassword'),
             'tahun_masuk': $('#bank_soal_modal').find('#tahun_masuk'),
             'deskripsi': $('#bank_soal_modal').find('#deskripsi'),
@@ -313,6 +308,8 @@
                     }
                     opsi = json['data'];
                     Kelolahbank_soalModal.id_bank_soal.val(bank_soal['id_bank_soal']);
+                    Kelolahbank_soalModal.pembahasan.val(bank_soal['pembahasan']);
+
                     i = 1;
                     Kelolahbank_soalModal.id_bank_soal.val(bank_soal['id_bank_soal']);
                     Kelolahbank_soalModal.id_mapel.val(bank_soal['id_mapel']);

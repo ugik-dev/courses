@@ -71,7 +71,7 @@ class AdminModel extends CI_Model
 
 	public function addBankSoal($data)
 	{
-		$dataInsert = DataStructure::slice($data, ['id_mapel', 'soal']);
+		$dataInsert = DataStructure::slice($data, ['id_mapel', 'soal', 'pembahasan']);
 		$this->db->insert('bank_soal', $dataInsert);
 		ExceptionHandler::handleDBError($this->db->error(), "Insert", "bank_soal");
 		$id_soal =  $this->db->insert_id();
@@ -128,7 +128,7 @@ class AdminModel extends CI_Model
 
 	public function editBankSoal($data)
 	{
-		$dataInsert = DataStructure::slice($data, ['id_mapel', 'soal']);
+		$dataInsert = DataStructure::slice($data, ['id_mapel', 'soal', 'pembahasan']);
 		$this->db->where('id_bank_soal', $data['id_bank_soal']);
 		$this->db->update('bank_soal', $dataInsert);
 		ExceptionHandler::handleDBError($this->db->error(), "Insert", "bank_soal");
