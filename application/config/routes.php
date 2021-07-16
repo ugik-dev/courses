@@ -68,6 +68,7 @@ $route['change-password'] = 'UserController/changePassword';
 $route['change-password-process'] = 'UserController/changePasswordProcess';
 $route['register-process'] = 'PublicController/registerProcess';
 $route['student'] = 'PublicController/my_task';
+$route['guest'] = 'GuestController/index';
 $route['activator/(:num)/(:any)'] = "PublicController/activator/$1/$2";
 
 
