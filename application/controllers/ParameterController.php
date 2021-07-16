@@ -1,18 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ParameterController extends CI_Controller {
+class ParameterController extends CI_Controller
+{
 
-    public function __construct(){
-        parent::__construct();
-            $this->load->model(array('ParameterModel'));
-        $this->load->helper(array('DataStructure', 'Validation'));
-    
-    }
-    
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model(array('ParameterModel'));
+    $this->load->helper(array('DataStructure', 'Validation'));
+  }
 
-  public function getAllTahunAjaran(){
-    try{
+
+  public function getAllTahunAjaran()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->ParameterModel->getAllTahunAjaran($this->input->get());
       echo json_encode(array('data' => $data));
@@ -21,8 +23,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllKelas(){
-    try{
+  public function getAllKelas()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->ParameterModel->getAllKelas($this->input->post());
       echo json_encode(array('data' => $data));
@@ -31,8 +34,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllJurusan(){
-    try{
+  public function getAllJurusan()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->ParameterModel->getAllJurusan($this->input->post());
       echo json_encode(array('data' => $data));
@@ -41,12 +45,13 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  
-  public function getAllMapping(){
-    try{
+
+  public function getAllMapping()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllMapping($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -54,23 +59,25 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllMapel(){
-    try{
-      $this->SecurityModel->userOnlyGuard(TRUE);
+  public function getAllMapel()
+  {
+    try {
+      // $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->ParameterModel->getAllMapel();
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
       ExceptionHandler::handle($e);
     }
   }
-  
-  
-  public function getAllV4Mapping(){
-    try{
-      
+
+
+  public function getAllV4Mapping()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllV4Mapping($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -78,13 +85,14 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  
-  public function getAllV5Mapping(){
-    try{
-      
+
+  public function getAllV5Mapping()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllV5Mapping($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -92,12 +100,13 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllV0Mapping(){
-    try{
-      
+  public function getAllV0Mapping()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllV0Mapping($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -105,12 +114,13 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllSiswa(){
-    try{
-      
+  public function getAllSiswa()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllSiswa($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -118,14 +128,15 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  
 
-  public function getAllMappingKelasChat(){
-    try{
-      
+
+  public function getAllMappingKelasChat()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->get();
-     
+
       $data = $this->ParameterModel->getAllMappingKelasChat($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -133,12 +144,13 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllSiswaMapping(){
-    try{
-      
+  public function getAllSiswaMapping()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllSiswaMapping($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -146,13 +158,14 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  
-  public function getAllAbsen(){
-    try{
-      
+
+  public function getAllAbsen()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllAbsen($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -160,12 +173,13 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function getAllMapelJurusan(){
-    try{
-      
+  public function getAllMapelJurusan()
+  {
+    try {
+
       $this->SecurityModel->userOnlyGuard(TRUE);
       $filter = $this->input->post();
-     
+
       $data = $this->ParameterModel->getAllMapelJurusan($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -173,10 +187,11 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  
 
-  public function addMapel(){
-    try{
+
+  public function addMapel()
+  {
+    try {
       $this->SecurityModel->roleOnlyGuard('admin');
       $data = $this->input->post();
       $idUsaha = $this->ParameterModel->addMapel($data);
@@ -187,8 +202,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function editMapel(){
-    try{
+  public function editMapel()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $idUsaha = $this->ParameterModel->editMapel($data);
@@ -199,8 +215,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function deleteMapel(){
-    try{
+  public function deleteMapel()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $this->ParameterModel->deleteMapel($data);
@@ -210,9 +227,10 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  
-  public function addKelas(){
-    try{
+
+  public function addKelas()
+  {
+    try {
       $this->SecurityModel->roleOnlyGuard('admin');
       $data = $this->input->post();
       $idUsaha = $this->ParameterModel->addKelas($data);
@@ -223,8 +241,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function editKelas(){
-    try{
+  public function editKelas()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $idUsaha = $this->ParameterModel->editKelas($data);
@@ -235,8 +254,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function deleteKelas(){
-    try{
+  public function deleteKelas()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $this->ParameterModel->deleteKelas($data);
@@ -246,8 +266,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function addTA(){
-    try{
+  public function addTA()
+  {
+    try {
       $this->SecurityModel->roleOnlyGuard('admin');
       $data = $this->input->post();
       $idUsaha = $this->ParameterModel->addTA($data);
@@ -258,8 +279,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function editTA(){
-    try{
+  public function editTA()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $idUsaha = $this->ParameterModel->editTA($data);
@@ -270,8 +292,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function set_current_ta(){
-    try{
+  public function set_current_ta()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $this->ParameterModel->set_current_ta($data);
@@ -282,8 +305,9 @@ class ParameterController extends CI_Controller {
     }
   }
 
-  public function deleteTA(){
-    try{
+  public function deleteTA()
+  {
+    try {
       $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $this->ParameterModel->deleteTA($data);
@@ -292,5 +316,4 @@ class ParameterController extends CI_Controller {
       ExceptionHandler::handle($e);
     }
   }
-
 }

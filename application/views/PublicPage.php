@@ -9,24 +9,23 @@ $this->load->view('public/HeaderFragment',  ['title' => $title]);
             <div class="col-md-12 head-school">
                 <div class="row">
                     <div class="col-md-2 logo">
-                        <img class="logo" src="<?php echo base_url('assets/img/smansa.png'); ?>" style="width : auto; height: 100px">
+                        <img class="logo" src="<?php echo base_url('assets/img/study.png'); ?>" style="width : auto; height: 100px">
                     </div>
                     <div class="col-md-10 desk">
-                        <h1 class="display-4 shadowed">DEMO SMA NEGERI 1 SUNGAILIAT</h1>
-                        <p class="display-6  shadowed">Kabupaten Bangka</p>
-                        <p class="display-6  shadowed">Provinsi Kepulauan Bangka Belitung</p>
+                        <h1 class="display-4 shadowed">Your Courses</h1>
+                        <p class="lead shadowed">Ayok belajar bareng</p>
 
                         <!-- <p class="lead shadowed">Provinsi Kepulauan Bangka Belitung</p> -->
                     </div>
                 </div>
             </div>
-            <?php
-            // $this->load->view('public/Navbar.php',  ['title' => $title]);
-            $this->load->view($content);
-            // $this->load->view('public/FooterFragment');
-            ?>
 
         </div>
+        <?php
+        // $this->load->view('public/Navbar.php',  ['title' => $title]);
+        $this->load->view($content);
+        // $this->load->view('public/FooterFragment');
+        ?>
         <br>
     </div>
 </div>
@@ -60,15 +59,15 @@ $this->load->view('public/HeaderFragment',  ['title' => $title]);
     }
 
     .img_0 {
-        background-image: url('<?=base_url()?>assets/img/background/1-Lomba-Foto-Babar-2017_Menangkis-Tantangan_Lintang-Tatang.jpg');
+        background-image: url('<?= base_url() ?>assets/img/background/1-Lomba-Foto-Babar-2017_Menangkis-Tantangan_Lintang-Tatang.jpg');
     }
 
     .img_1 {
-        background-image: url('<?=base_url()?>assets/img/background/smansa.jpg');
+        background-image: url('<?= base_url() ?>assets/img/background/smansa.jpg');
     }
 
     .img_2 {
-        background-image: url('<?=base_url()?>assets/img/background/2-Agus-Ramdhany_Batu-penunggu-pantai.jpg');
+        background-image: url('<?= base_url() ?>assets/img/background/2-Agus-Ramdhany_Batu-penunggu-pantai.jpg');
     }
 
 
@@ -182,7 +181,7 @@ $this->load->view('public/HeaderFragment',  ['title' => $title]);
         }
     }
 
-    
+
     @media (max-width: 1000px) and (min-width: 370px) {
         .head-school .logo {
             width: 100%;

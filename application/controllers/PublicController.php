@@ -105,8 +105,12 @@ class PublicController extends CI_Controller
   public function getYourHistory()
   {
     try {
-      $this->SecurityModel->userOnlyGuard(TRUE);
-      $filter['id_user'] = $this->session->userdata()['id_user'];
+      // $this->SecurityModel->userOnlyGuard(TRUE);
+      // $filter['id_user'] = $this->session->userdata()['id_user'];
+      if (!empty($this->session->userdata()['id_user']))
+        $filter['id_user'] = $this->session->userdata()['id_user'];
+      else
+        $filter['ip_address'] = $this->input->ip_address();
       $data = $this->ParameterModel->getYourHistory($filter);
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -119,7 +123,7 @@ class PublicController extends CI_Controller
   {
     try {
 
-      $this->SecurityModel->userOnlyGuard(TRUE);
+      // $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->ParameterModel->getAvaliableSession();
       echo json_encode(array('data' => $data));
     } catch (Exception $e) {
@@ -131,7 +135,7 @@ class PublicController extends CI_Controller
   public function SubmitExam()
   {
     try {
-      $this->SecurityModel->userOnlyGuard(TRUE);
+      // $this->SecurityModel->userOnlyGuard(TRUE);
       $data = $this->input->post();
       $ans = '';
       for ($i = 0; $i < $data['count']; $i++) {
@@ -187,14 +191,14 @@ class PublicController extends CI_Controller
   public function createSessionExam()
   {
     try {
-      $this->SecurityModel->userOnlyGuard(TRUE);
+      // $this->SecurityModel->userOnlyGuard(TRUE);
       $id = $this->input->post()['id_session_exam'];
       $row = $this->ParameterModel->getAvaliableSession(array('id_session_exam' => $id));
       if (empty($row)) {
         throw new UserException("Sorry Not Avaliable", USER_NOT_FOUND_CODE);
       }
       $cur =  $row[$id];
-      $data = $this->ParameterModel->getAllBankSoal(array('id_mapel' => $cur['id_mapel'], 'result_array' => true));
+      $data = $this->ParameterModel->getAllBankSoal(array('id_mapel' => $cur['id_mapel'], 'limit' => $cur['limit_soal'], 'order_random' => true, 'result_array' => true));
       shuffle($data);
       $shuffle = '';
       $i = 0;
@@ -207,7 +211,11 @@ class PublicController extends CI_Controller
       }
       $id = $this->ParameterModel->createExam(array('id_session_exam' => $id, 'generate_soal' => $shuffle));
       $filter['id_session_exam_user'] = $id;
-      $filter['id_user'] = $this->session->userdata()['id_user'];
+      if (!empty($this->session->userdata()['id_user']))
+        $filter['id_user'] = $this->session->userdata()['id_user'];
+      else
+        $filter['ip_address'] = $this->input->ip_address();
+
       $data = $this->ParameterModel->getExam($filter)[$id]['token'];
 
       echo json_encode(array('data' => $data));
@@ -220,9 +228,14 @@ class PublicController extends CI_Controller
   public function start_exam($token)
   {
     try {
-      $this->SecurityModel->userOnlyGuard(TRUE);
+      // $this->SecurityModel->userOnlyGuard(TRUE);
       $filter['token'] = $token;
-      $filter['id_user'] = $this->session->userdata()['id_user'];
+      // $filter['id_user'] = $this->session->userdata()['id_user'];
+      if (!empty($this->session->userdata()['id_user']))
+        $filter['id_user'] = $this->session->userdata()['id_user'];
+      else
+        $filter['ip_address'] = $this->input->ip_address();
+
       $data = $this->ParameterModel->getExam($filter);
       if (!empty($data)) {
         $data = $data[$token];
@@ -296,7 +309,7 @@ class PublicController extends CI_Controller
   public function pembahasan($data)
   {
     try {
-      $this->SecurityModel->userOnlyGuard(TRUE);
+      // $this->SecurityModel->userOnlyGuard(TRUE);
       if (!empty($data)) {
         $data = $data;
         $ex_soal = explode(',', $data['generate_soal']);

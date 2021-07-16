@@ -41,6 +41,7 @@ class ParameterModel extends CI_Model
 		if (!empty($filter['id_session_exam_user'])) $this->db->where('u.id_session_exam_user', $filter['id_session_exam_user']);
 		if (!empty($filter['token'])) $this->db->where('u.token', $filter['token']);
 		if (!empty($filter['id_user'])) $this->db->where('u.id_user', $filter['id_user']);
+		if (!empty($filter['ip_address'])) $this->db->where('u.ip_address', $filter['ip_address']);
 		$res = $this->db->get();
 		if (!empty($filter['token'])) {
 			return DataStructure::keyValue($res->result_array(), 'token');
@@ -58,6 +59,7 @@ class ParameterModel extends CI_Model
 		if (!empty($filter['id_session_exam_user'])) $this->db->where('u.id_session_exam_user', $filter['id_session_exam_user']);
 		if (!empty($filter['token'])) $this->db->where('u.token', $filter['token']);
 		if (!empty($filter['id_user'])) $this->db->where('u.id_user', $filter['id_user']);
+		if (!empty($filter['ip_address'])) $this->db->where('u.ip_address', $filter['ip_address']);
 		$res = $this->db->get();
 		if (!empty($filter['token'])) {
 			return DataStructure::keyValue($res->result_array(), 'token');
@@ -96,7 +98,8 @@ class ParameterModel extends CI_Model
 		$this->db->where('k.status', 'Y');
 		if (!empty($filter['id_bank_soal'])) $this->db->where('u.id_bank_soal', $filter['id_bank_soal']);
 		if (!empty($filter['id_mapel'])) $this->db->where('u.id_mapel', $filter['id_mapel']);
-		// if (isset($filter['id_user'])) $this->db->where('u.id_user', $filter['id_user']);
+		if (!empty($filter['limit'])) $this->db->limit($filter['limit']);
+		if (!empty($filter['order_random'])) $this->db->order_by('rand()');
 		$res = $this->db->get();
 		if (!empty($filter['result_array'])) {
 			return $res->result_array();
@@ -539,9 +542,15 @@ class ParameterModel extends CI_Model
 		if ($data['autosave'] == 'false') {
 			$this->db->set('exam_lock', 'Y');
 		}
+		if (!empty($this->session->userdata()['id_user']))
+			$this->db->where('id_user', $this->session->userdata('id_user'));
+		// $filter['id_user'] = $this->session->userdata()['id_user'];
+		else
+			$this->db->where('ip_address', $this->input->ip_address());
+		// $filter['ip_address'] = $this->input->ip_address();
+
 		$this->db->set('answer', $data['answer']);
 		$this->db->where('token', $data['token']);
-		$this->db->where('id_user', $this->session->userdata('id_user'));
 		$this->db->update('session_exam_user');
 		ExceptionHandler::handleDBError($this->db->error(), "Save Session", "save_session");
 		// return $this->db->insert_id();
@@ -549,9 +558,12 @@ class ParameterModel extends CI_Model
 
 	public function createExam($data)
 	{
-		$data['id_user'] = $this->session->userdata()['id_user'];
+		if (!empty($this->session->userdata()['id_user']))
+			$data['id_user'] = $this->session->userdata()['id_user'];
+		else
+			$data['ip_address'] =  $this->input->ip_address();
 		$data['token'] = bin2hex(openssl_random_pseudo_bytes(32));
-		$dataInsert = DataStructure::slice($data, ['id_session_exam', 'id_user', 'generate_soal', 'token']);
+		$dataInsert = DataStructure::slice($data, ['id_session_exam', 'id_user', 'generate_soal', 'token', 'ip_address']);
 		$this->db->insert('session_exam_user', $dataInsert);
 		ExceptionHandler::handleDBError($this->db->error(), "Create Session", "create_session");
 		return $this->db->insert_id();

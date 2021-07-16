@@ -1,5 +1,5 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="ibox ssection-container">
+    <!-- <div class="ibox ssection-container">
         <div class="ibox-content">
             <form class="form-inline" id="toolbar_form" onsubmit="return false;">
                 <select class="form-control mr-sm-2" name="id_mapel" id="id_mapel" required></select>
@@ -9,7 +9,7 @@
                 <button type="submit" class="btn btn-primary my-1 mr-sm-2" id="add_btn" data-loading-text="Loading..." onclick="this.form.target='add'"><i class="fal fa-plus"></i> Tambah</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -248,11 +248,11 @@
                     success: function(data) {
                         var json = JSON.parse(data);
                         if (json['error']) {
-                            swal("Create Faild", json['message'], "error");
+                            swal("Faild", json['message'], "error");
                             return;
                         }
                         // delete dataAvaliabeExam[id];
-                        swal("Create Berhasil", "", "success");
+                        swal("Success", "", "success");
                         window.location.href = '<?= base_url() ?>my-task/' + json['data'];
                         // renderAvaliabeExam(dataAvaliabeExam);
                     },
