@@ -193,6 +193,17 @@ class PublicController extends CI_Controller
     try {
       // $this->SecurityModel->userOnlyGuard(TRUE);
       $id = $this->input->post()['id_session_exam'];
+      if (!empty($this->session->userdata()['id_user']))
+        $filter['id_user'] = $this->session->userdata()['id_user'];
+      else {
+        $filter['ip_address'] = $this->input->ip_address();
+        $co = $this->ParameterModel->getYourHistory($filter);
+        // var_dump($co);
+        if (count($co) > 5)
+          throw new UserException("Sorry, anda sudah lebih dari 5 kali test, harap melakukan registrasi untuk melakukan Try Out.", USER_NOT_FOUND_CODE);
+        // die();
+      }
+
       $row = $this->ParameterModel->getAvaliableSession(array('id_session_exam' => $id));
       if (empty($row)) {
         throw new UserException("Sorry Not Avaliable", USER_NOT_FOUND_CODE);
@@ -211,10 +222,6 @@ class PublicController extends CI_Controller
       }
       $id = $this->ParameterModel->createExam(array('id_session_exam' => $id, 'generate_soal' => $shuffle));
       $filter['id_session_exam_user'] = $id;
-      if (!empty($this->session->userdata()['id_user']))
-        $filter['id_user'] = $this->session->userdata()['id_user'];
-      else
-        $filter['ip_address'] = $this->input->ip_address();
 
       $data = $this->ParameterModel->getExam($filter)[$id]['token'];
 

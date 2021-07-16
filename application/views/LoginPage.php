@@ -28,6 +28,7 @@
             <button type="submit" id="loginBtn" class="btn btn-primary block full-width m-b" data-loading-text="Loging In...">Login</button>
             <!-- <a type="button" href="search" class="btn btn-info block full-width m-b" data-loading-text=""><i class="fa fa-search"></i> Cari Data Siswa</a> -->
             <a type="button" href="register" class="btn btn-info block full-width m-b" data-loading-text=""><i class="fa fa-user"></i> Register</a>
+            <a type="button" href="guest" class="btn btn-success block full-width m-b" data-loading-text=""><i class="fa fa-book"></i> Guest Free Try-out</a>
 
           </form>
           <p class="m-t">
