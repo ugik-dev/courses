@@ -15,11 +15,8 @@ class ParameterModel extends CI_Model
 			and bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
 			$res = $this->db->query($query);
 			$res = $res->result_array();
-
-
 			$benar = $res[0]['benar'];
 			$ans = explode(',', $data['answer']);
-
 			$count = count($ans);
 			$score = $benar / $count * 100;
 			$this->db->set('score', $score);
@@ -30,10 +27,6 @@ class ParameterModel extends CI_Model
 			$query = 'SELECT sum(poin) as score from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
 			where 
 			 bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
-
-
-			// print_r($query);
-			// die();
 			$res = $this->db->query($query);
 			$res = $res->result_array();
 
@@ -44,8 +37,31 @@ class ParameterModel extends CI_Model
 			$res2 = $res2->result_array();
 
 
+
 			$benar = $res2[0]['benar'];
 			$score = $res[0]['score'];
+			if ($data['id_mapel'] == '17') {
+				$tiuquery = 'SELECT sum(poin) as score from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
+				where id_mapel = 14 and
+				 bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
+				$tiu = $this->db->query($tiuquery);
+				$tiu = $tiu->result_array();
+
+				$twkquery = 'SELECT sum(poin) as score from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
+				where id_mapel = 15 and
+				 bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
+				$twk = $this->db->query($twkquery);
+				$twk = $twk->result_array();
+
+				$tkpquery = 'SELECT sum(poin) as score from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
+				where id_mapel = 16 and
+				 bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
+				$tkp = $this->db->query($tkpquery);
+				$tkp = $tkp->result_array();
+
+				$score_arr = ((string)$tiu[0]['score'] ? (string)$tiu[0]['score'] : 0) . ',' . ((string)$twk[0]['score'] ? (string)$twk[0]['score'] : 0) . ',' . ((string)$tkp[0]['score'] ? (string)$tkp[0]['score'] : 0);
+				$this->db->set('score_arr', $score_arr);
+			}
 			// $ans = explode(',', $data['answer']);
 
 			// $count = count($ans);
@@ -54,6 +70,7 @@ class ParameterModel extends CI_Model
 			$this->db->set('benar', $benar);
 			$this->db->where('token', $data['token']);
 			$this->db->update('session_exam_user');
+			// echo json_encode($data);
 			// die();
 		}
 	}
@@ -78,7 +95,7 @@ class ParameterModel extends CI_Model
 
 	public function getExam($filter)
 	{
-		$this->db->select("u.* ,(limit_time + 1 ) as limit_time, poin_mode");
+		$this->db->select("u.* ,(limit_time + 1 ) as limit_time, poin_mode, r.id_mapel");
 		$this->db->from('session_exam_user as u');
 		$this->db->join('session_exam as r', 'r.id_session_exam = u.id_session_exam');
 		// $this->db->join('kabupaten as k', 'k.id_kabupaten = u.id_kabupaten','left');

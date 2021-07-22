@@ -211,7 +211,7 @@ class PublicController extends CI_Controller
       $cur =  $row[$id];
       $i = 0;
       $shuffle = '';
-      if ($cur['id_mapel'] = '17') {
+      if ($cur['id_mapel'] == '17') {
         $data = $this->ParameterModel->getAllBankSoal(array('id_mapel' => '14', 'limit' => 30, 'order_random' => true, 'result_array' => true));
         shuffle($data);
         foreach ($data as $d) {
@@ -367,8 +367,6 @@ class PublicController extends CI_Controller
       $btn = '';
       foreach ($ex_soal as $ex) {
         $exs = $this->ParameterModel->getShuffleSoal($ex, true);
-        // echo json_encode($data);
-        // die();
         $data_soal[$i] = $exs;
         if ($ans[$i] == '0' or $ans[$i] == '-' or $exs['soal']['token_opsi'] != $ans[$i])
           $btn .= '<a data-toggle="pill" class="nav-link btn btn-danger mr-1 mt-1" id="ans_' . $i . '" href="#soal_' . $i . '" role="tab">' . ($i + 1) . '</a>';
@@ -376,6 +374,8 @@ class PublicController extends CI_Controller
           $btn .= '<a data-toggle="pill" class="nav-link btn btn-success mr-1 mt-1" id="ans_' . $i . '" href="#soal_' . $i . '" role="tab">' . ($i + 1) . '</a>';
         $i++;
       }
+      // echo json_encode($exs);
+      // die();
 
       // echo json_encode(array('data' => $data_soal));
       // $this->SecurityModel->userOnlyGuard(TRUE);
