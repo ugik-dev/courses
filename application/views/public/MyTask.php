@@ -226,7 +226,7 @@
                 var button = `
                     <button class="create btn btn-primary" data-id='${bank_soal['id_session_exam']}'><i class='fa fa-arrow-circle-right '></i> Start Exam </button>
                 `;
-                renderData.push(['From :' + bank_soal['open_start'] + '<br> To : ' + bank_soal['open_start'], bank_soal['nama_mapel'] + " :: " + bank_soal['name_session_exam'], 'Jumlah Soal : ' + bank_soal['limit_soal'] + ' soal<br> Waktu Pengerjaan : ' + bank_soal['limit_time'] + ' menit' + '<br>' + (bank_soal['poin_mode'] == 'avg' ? 'Akumulasi maksimum score 100' : 'Poin Mode: benar x ' + bank_soal['poin_mode']), button]);
+                renderData.push(['From :' + bank_soal['open_start'] + '<br> To : ' + bank_soal['open_start'], bank_soal['nama_mapel'] + " :: " + bank_soal['name_session_exam'], 'Jumlah Soal : ' + bank_soal['limit_soal'] + ' soal<br> Waktu Pengerjaan : ' + bank_soal['limit_time'] + ' menit', button]);
             });
             FDataTable.clear().rows.add(renderData).draw('full-hold');
         }

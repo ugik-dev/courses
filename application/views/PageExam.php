@@ -12,18 +12,18 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
         <form role="form" id="exam_form" onsubmit="return false;" type="multipart" autocomplete="off">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="alert alert-info" role="alert">
-                        Timer <strong>
-
-                            <div id="countdown"></div>
-                        </strong>
-                    </div>
                     <input type="hidden" value="<?= $token ?>" name="token">
                     <div class="ibox-content box-answer text-center nav" role="tablist">
                         <?= $btn ?>
                     </div>
                 </div>
                 <div class="col-lg-8">
+                    <div class="alert alert-info" role="alert">
+                        Timer :
+                        <strong id="countdown">
+                        </strong>
+                    </div>
+
                     <div class="tab-content" id="pills-tabContent">
                         <?php
                         $i = 0;
