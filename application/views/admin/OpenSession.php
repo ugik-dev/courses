@@ -48,7 +48,7 @@
             </div>
             <div class="modal-body" id="modal-body">
                 <form role="form" id="bank_soal_form" onsubmit="return false;" type="multipart" autocomplete="off">
-                    <input type="" id="id_session_exam" name="id_session_exam">
+                    <input type="hidden" id="id_session_exam" name="id_session_exam">
 
                     <div class="form-group">
                         <label for="nama">Mata Pelajaran</label>
@@ -57,6 +57,13 @@
                     <div class="form-group">
                         <label for="nama">Session Name</label>
                         <input type="text" placeholder="" class="form-control" id="name_session_exam" name="name_session_exam" required="required"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Score</label>
+                        <select class="form-control mr-sm-2" name="poin_mode" id="poin_mode">
+                            <option value="avg"> Akumukasi 100</option>
+                            <option value="poin"> Poin</option>
+                        </select>
                     </div>
                     <label for="open_start">Avaliable</label>
                     <div class="col-lg-12">
@@ -129,6 +136,7 @@
             'open_end': $('#bank_soal_modal').find('#open_end'),
             'limit_soal': $('#bank_soal_modal').find('#limit_soal'),
             'limit_time': $('#bank_soal_modal').find('#limit_time'),
+            'poin_mode': $('#bank_soal_modal').find('#poin_mode'),
         }
 
         getAllMapel();
@@ -280,6 +288,7 @@
             Kelolahbank_soalModal.name_session_exam.val(bank_soal['name_session_exam']);
             Kelolahbank_soalModal.limit_soal.val(bank_soal['limit_soal']);
 
+            Kelolahbank_soalModal.poin_mode.val(bank_soal['poin_mode']);
             Kelolahbank_soalModal.limit_time.val(bank_soal['limit_time']);
             Kelolahbank_soalModal.self.modal('show');
         });

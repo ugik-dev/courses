@@ -7,28 +7,55 @@ class ParameterModel extends CI_Model
 
 	public function calculateScore($data, $soal, $answer)
 	{
-		$query = 'SELECT count(*) as benar from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
-		where bank_opsi.status = "Y" 
-		and bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
-		$res = $this->db->query($query);
-		$res = $res->result_array();
 
 
-		$benar = $res[0]['benar'];
-		$ans = explode(',', $data['answer']);
+		if ($data['poin_mode'] == 'avg') {
+			$query = 'SELECT count(*) as benar from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
+			where bank_opsi.status = "Y" 
+			and bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
+			$res = $this->db->query($query);
+			$res = $res->result_array();
 
-		$count = count($ans);
 
+			$benar = $res[0]['benar'];
+			$ans = explode(',', $data['answer']);
 
-		if ($data['poin_mode'] == 'avg')
+			$count = count($ans);
 			$score = $benar / $count * 100;
-		else
-			$score = $benar * $data['poin_mode'];
+			$this->db->set('score', $score);
+			$this->db->set('benar', $benar);
+			$this->db->where('token', $data['token']);
+			$this->db->update('session_exam_user');
+		} else {
+			$query = 'SELECT sum(poin) as score from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
+			where 
+			 bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
 
-		$this->db->set('score', $score);
-		$this->db->set('benar', $benar);
-		$this->db->where('token', $data['token']);
-		$this->db->update('session_exam_user');
+
+			// print_r($query);
+			// die();
+			$res = $this->db->query($query);
+			$res = $res->result_array();
+
+			$query2 = 'SELECT count(*) as benar from bank_soal  left join bank_opsi on bank_soal.id_bank_soal = bank_opsi.id_bank_soal 
+			where bank_opsi.status = "Y" 
+			and bank_soal.id_bank_soal in (' . $soal . ') and bank_opsi.token_opsi in (' . $answer . ') ';
+			$res2 = $this->db->query($query2);
+			$res2 = $res2->result_array();
+
+
+			$benar = $res2[0]['benar'];
+			$score = $res[0]['score'];
+			// $ans = explode(',', $data['answer']);
+
+			// $count = count($ans);
+			// $score = $benar / $count * 100;
+			$this->db->set('score', $score);
+			$this->db->set('benar', $benar);
+			$this->db->where('token', $data['token']);
+			$this->db->update('session_exam_user');
+			// die();
+		}
 	}
 
 	public function getYourHistory($filter = [])

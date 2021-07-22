@@ -209,17 +209,50 @@ class PublicController extends CI_Controller
         throw new UserException("Sorry Not Avaliable", USER_NOT_FOUND_CODE);
       }
       $cur =  $row[$id];
-      $data = $this->ParameterModel->getAllBankSoal(array('id_mapel' => $cur['id_mapel'], 'limit' => $cur['limit_soal'], 'order_random' => true, 'result_array' => true));
-      shuffle($data);
-      $shuffle = '';
       $i = 0;
-      foreach ($data as $d) {
-        if ($i == 0)
-          $shuffle .= $d['id_bank_soal'];
-        else
-          $shuffle .= ',' . $d['id_bank_soal'];
-        $i++;
+      $shuffle = '';
+      if ($cur['id_mapel'] = '17') {
+        $data = $this->ParameterModel->getAllBankSoal(array('id_mapel' => '14', 'limit' => 30, 'order_random' => true, 'result_array' => true));
+        shuffle($data);
+        foreach ($data as $d) {
+          if ($i == 0)
+            $shuffle .= $d['id_bank_soal'];
+          else
+            $shuffle .= ',' . $d['id_bank_soal'];
+          $i++;
+        }
+
+        $data2 = $this->ParameterModel->getAllBankSoal(array('id_mapel' => '15', 'limit' => 30, 'order_random' => true, 'result_array' => true));
+        shuffle($data2);
+        foreach ($data2 as $d2) {
+          if ($i == 0)
+            $shuffle .= $d2['id_bank_soal'];
+          else
+            $shuffle .= ',' . $d2['id_bank_soal'];
+          $i++;
+        }
+
+        $data3 = $this->ParameterModel->getAllBankSoal(array('id_mapel' => '16', 'limit' => 30, 'order_random' => true, 'result_array' => true));
+        shuffle($data3);
+        foreach ($data3 as $d3) {
+          if ($i == 0)
+            $shuffle .= $d3['id_bank_soal'];
+          else
+            $shuffle .= ',' . $d3['id_bank_soal'];
+          $i++;
+        }
+      } else {
+        $data = $this->ParameterModel->getAllBankSoal(array('id_mapel' => $cur['id_mapel'], 'limit' => $cur['limit_soal'], 'order_random' => true, 'result_array' => true));
+        shuffle($data);
+        foreach ($data as $d) {
+          if ($i == 0)
+            $shuffle .= $d['id_bank_soal'];
+          else
+            $shuffle .= ',' . $d['id_bank_soal'];
+          $i++;
+        }
       }
+
       $id = $this->ParameterModel->createExam(array('id_session_exam' => $id, 'generate_soal' => $shuffle));
       $filter['id_session_exam_user'] = $id;
 

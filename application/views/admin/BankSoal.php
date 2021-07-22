@@ -39,7 +39,7 @@
 
 
 <div class="modal inmodal" id="bank_soal_modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content animated fadeIn">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -65,38 +65,66 @@
                     <div class="form-group" id="">
                         <p class="no-margins"><span id="frm_img">-</span></p>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Jawaban</label>
-                        <input type="hidden" id="id_jawaban" name="id_jawaban">
-                        <textarea type="text" placeholder="" class="form-control" id="jawaban" name="jawaban" required="required"></textarea>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <input type="hidden" id="id_jawaban" name="id_jawaban">
+                            <textarea type="text" placeholder="Jawaban" class="form-control" id="jawaban" name="jawaban" required="required"></textarea>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <!-- <label for="password">Jawaban</label> -->
+                            <input type="number" min="0" step="1" max="5" placeholder="Poin" class="form-control" id="jawaban_poin" name="jawaban_poin" required="required"></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <input type="hidden" id="id_opsi_1" name="id_opsi_1">
+
+                            <textarea type="text" placeholder="Opsi 1" class="form-control" id="opsi_1" name="opsi_1" required="required"></textarea>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <!-- <label for="password">Jawaban</label> -->
+                            <input type="number" min="0" step="1" max="5" placeholder="Poin" class="form-control" id="opsi_1_poin" name="opsi_1_poin" required="required"></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <input type="hidden" id="id_opsi_2" name="id_opsi_2">
+                            <textarea type="text" placeholder="Opsi 2" class="form-control" id="opsi_2" name="opsi_2" required="required"></textarea>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <!-- <label for="password">Jawaban</label> -->
+                            <input type="number" min="0" step="1" max="5" placeholder="Poin" class="form-control" id="opsi_2_poin" name="opsi_2_poin" required="required"></input>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Opsi Peralihan 1</label>
-                        <input type="hidden" id="id_opsi_1" name="id_opsi_1">
 
-                        <textarea type="text" placeholder="" class="form-control" id="opsi_1" name="opsi_1" required="required"></textarea>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <input type="hidden" id="id_opsi_3" name="id_opsi_3">
+                            <textarea type="text" placeholder="Opsi 3" class="form-control" id="opsi_3" name="opsi_3" required="required"></textarea>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <!-- <label for="password">Jawaban</label> -->
+                            <input type="number" min="0" step="1" max="5" placeholder="Poin" class="form-control" id="opsi_3_poin" name="opsi_3_poin" required="required"></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <input type="hidden" id="id_opsi_4" name="id_opsi_4">
+                            <textarea type="text" placeholder="Opsi 4" class="form-control" id="opsi_4" name="opsi_4" required="required"></textarea>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <!-- <label for="password">Jawaban</label> -->
+                            <input type="number" min="0" step="1" max="5" placeholder="Poin" class="form-control" id="opsi_4_poin" name="opsi_4_poin" required="required"></input>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="password">Opsi Peralihan 2</label>
-                        <input type="hidden" id="id_opsi_2" name="id_opsi_2">
-                        <textarea type="text" placeholder="" class="form-control" id="opsi_2" name="opsi_2" required="required"></textarea>
+                        <!-- <label for="password">Opsi Peralihan 4</label> -->
                     </div>
                     <div class="form-group">
-                        <label for="password">Opsi Peralihan 3</label>
-                        <input type="hidden" id="id_opsi_3" name="id_opsi_3">
-                        <textarea type="text" placeholder="" class="form-control" id="opsi_3" name="opsi_3" required="required"></textarea>
+                        <!-- <label for="password">Pembahasan</label> -->
+                        <textarea type="text" placeholder="Pembahasan" class="form-control" id="pembahasan" name="pembahasan"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Opsi Peralihan 4</label>
-                        <input type="hidden" id="id_opsi_4" name="id_opsi_4">
-                        <textarea type="text" placeholder="" class="form-control" id="opsi_4" name="opsi_4" required="required"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Pembahasan</label>
-                        <textarea type="text" placeholder="" class="form-control" id="pembahasan" name="pembahasan" required="required"></textarea>
-                    </div>
-
                     <div class="form-group" id="task_dokumen_form">
                         <label for="pembahasan_img">File Pembahasan (img/pdf)</label>
                         <p class="no-margins"><span id="pembahasan_img">-</span></p>
@@ -149,7 +177,15 @@
             'id_mapel': $('#bank_soal_modal').find('#id_mapel'),
             'soal': $('#bank_soal_modal').find('#soal'),
             'jawaban': $('#bank_soal_modal').find('#jawaban'),
+            'jawaban_poin': $('#bank_soal_modal').find('#jawaban_poin'),
             'opsi_1': $('#bank_soal_modal').find('#opsi_1'),
+            'opsi_2': $('#bank_soal_modal').find('#opsi_2'),
+            'opsi_3': $('#bank_soal_modal').find('#opsi_3'),
+            'opsi_4': $('#bank_soal_modal').find('#opsi_4'),
+            'opsi_1_poin': $('#bank_soal_modal').find('#opsi_1_poin'),
+            'opsi_2_poin': $('#bank_soal_modal').find('#opsi_2_poin'),
+            'opsi_3_poin': $('#bank_soal_modal').find('#opsi_3_poin'),
+            'opsi_4_poin': $('#bank_soal_modal').find('#opsi_4_poin'),
             'pembahasan': $('#bank_soal_modal').find('#pembahasan'),
             'frm_pembahasan': $('#bank_soal_modal').find('#frm_pembahasan'),
             'frm_img': $('#bank_soal_modal').find('#frm_img'),
@@ -333,9 +369,11 @@
                         if (d['status'] == 'Y') {
                             document.getElementById('id_jawaban').value = d['id_opsi'];
                             Kelolahbank_soalModal.jawaban.val(d['name_opsi']);
+                            Kelolahbank_soalModal.jawaban_poin.val(d['poin']);
                         } else {
                             document.getElementById('id_opsi_' + i).value = d['id_opsi'];
                             document.getElementById('opsi_' + i).value = d['name_opsi'];
+                            document.getElementById('opsi_' + i + '_poin').value = d['poin'];
                             i++;
                         }
 
@@ -392,6 +430,15 @@
             Kelolahbank_soalModal.id_mapel.val(toolbar.id_mapel.val());
             Kelolahbank_soalModal.frm_img.html('')
             Kelolahbank_soalModal.frm_pembahasan.html('')
+            Kelolahbank_soalModal.jawaban_poin.val(5)
+            if (toolbar.id_mapel.val() == '16') {
+                Kelolahbank_soalModal.opsi_1_poin.val(4)
+                Kelolahbank_soalModal.opsi_2_poin.val(3)
+                Kelolahbank_soalModal.opsi_3_poin.val(2)
+                Kelolahbank_soalModal.opsi_4_poin.val(1)
+
+            }
+
         }
 
         Kelolahbank_soalModal.form.submit(function(event) {

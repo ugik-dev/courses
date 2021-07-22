@@ -35,7 +35,7 @@ class AdminModel extends CI_Model
 	public function addSessionExam($data)
 	{
 
-		$dataInsert = DataStructure::slice($data, ['id_mapel', 'open_start', 'open_end', 'limit_soal', 'limit_time', 'name_session_exam']);
+		$dataInsert = DataStructure::slice($data, ['id_mapel', 'open_start', 'open_end', 'limit_soal', 'limit_time', 'name_session_exam', 'poin_mode']);
 		$this->db->insert('session_exam', $dataInsert);
 		ExceptionHandler::handleDBError($this->db->error(), "Insert Mapel Jurusan", "session_exam");
 		return $this->db->insert_id();
@@ -43,7 +43,7 @@ class AdminModel extends CI_Model
 
 	public function editSessionExam($data)
 	{
-		$dataInsert = DataStructure::slice($data, ['id_mapel', 'open_start', 'open_end', 'limit_soal', 'limit_time', 'name_session_exam']);
+		$dataInsert = DataStructure::slice($data, ['id_mapel', 'open_start', 'open_end', 'limit_soal', 'limit_time', 'name_session_exam', 'poin_mode']);
 		$this->db->where('id_session_exam', $data['id_session_exam']);
 		$this->db->update('session_exam', $dataInsert);
 		ExceptionHandler::handleDBError($this->db->error(), "Insert Mapel Jurusan", "session_exam");
@@ -80,6 +80,7 @@ class AdminModel extends CI_Model
 			$token = bin2hex(openssl_random_pseudo_bytes(6));
 			$this->db->set('token_opsi', $token);
 			$this->db->set('id_bank_soal', $id_soal);
+			$this->db->set('poin', $data['jawaban_poin']);
 			$this->db->set('name_opsi', $data['jawaban']);
 			$this->db->set('status', 'Y');
 			$this->db->insert('bank_opsi');
@@ -90,6 +91,7 @@ class AdminModel extends CI_Model
 			$this->db->set('token_opsi', $token);
 			$this->db->set('id_bank_soal', $id_soal);
 			$this->db->set('name_opsi', $data['opsi_1']);
+			$this->db->set('poin', $data['opsi_1_poin']);
 			$this->db->set('status', 'N');
 			$this->db->insert('bank_opsi');
 		}
@@ -99,6 +101,7 @@ class AdminModel extends CI_Model
 			$this->db->set('token_opsi', $token);
 
 			$this->db->set('id_bank_soal', $id_soal);
+			$this->db->set('poin', $data['opsi_2_poin']);
 			$this->db->set('name_opsi', $data['opsi_2']);
 			$this->db->set('status', 'N');
 			$this->db->insert('bank_opsi');
@@ -108,6 +111,7 @@ class AdminModel extends CI_Model
 			$token = bin2hex(openssl_random_pseudo_bytes(6));
 			$this->db->set('token_opsi', $token);
 			$this->db->set('id_bank_soal', $id_soal);
+			$this->db->set('poin', $data['opsi_3_poin']);
 			$this->db->set('name_opsi', $data['opsi_3']);
 			$this->db->set('status', 'N');
 			$this->db->insert('bank_opsi');
@@ -117,6 +121,7 @@ class AdminModel extends CI_Model
 			$token = bin2hex(openssl_random_pseudo_bytes(6));
 			$this->db->set('token_opsi', $token);
 			$this->db->set('id_bank_soal', $id_soal);
+			$this->db->set('poin', $data['opsi_4_poin']);
 			$this->db->set('name_opsi', $data['opsi_4']);
 			$this->db->set('status', 'N');
 			$this->db->insert('bank_opsi');
@@ -136,6 +141,7 @@ class AdminModel extends CI_Model
 
 		if (!empty($data['jawaban'])) {
 			// $this->db->set('id_bank_soal', $id_soal);
+			$this->db->set('poin', $data['jawaban_poin']);
 			$this->db->set('name_opsi', $data['jawaban']);
 			// $this->db->set('status', 'Y');
 			$this->db->where('id_opsi', $data['id_jawaban']);
@@ -143,12 +149,14 @@ class AdminModel extends CI_Model
 		}
 
 		if (!empty($data['opsi_1'])) {
+			$this->db->set('poin', $data['opsi_1_poin']);
 			$this->db->set('name_opsi', $data['opsi_1']);
 			$this->db->where('id_opsi', $data['id_opsi_1']);
 			$this->db->update('bank_opsi');
 		}
 
 		if (!empty($data['opsi_2'])) {
+			$this->db->set('poin', $data['opsi_2_poin']);
 			$this->db->set('name_opsi', $data['opsi_2']);
 			$this->db->set('status', 'N');
 			if (empty($data['id_opsi_2'])) {
@@ -163,6 +171,7 @@ class AdminModel extends CI_Model
 		}
 
 		if (!empty($data['opsi_3'])) {
+			$this->db->set('poin', $data['opsi_3_poin']);
 			$this->db->set('name_opsi', $data['opsi_3']);
 			$this->db->set('status', 'N');
 			if (empty($data['id_opsi_3'])) {
@@ -177,6 +186,7 @@ class AdminModel extends CI_Model
 		}
 
 		if (!empty($data['opsi_4'])) {
+			$this->db->set('poin', $data['opsi_4_poin']);
 			$this->db->set('name_opsi', $data['opsi_4']);
 			$this->db->set('status', 'N');
 			if (empty($data['id_opsi_4'])) {
