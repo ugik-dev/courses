@@ -166,6 +166,41 @@ class PublicController extends CI_Controller
   function calculateScore($token, $restric = false)
   {
     $data = $this->ParameterModel->getExam(array('token' => $token))[$token];
+    $dateTime = new DateTime($data['start_time']);
+    $dateTime->modify('+' . $data['limit_time'] . ' minutes');
+    $t1 = ($dateTime->format("Y-m-d H:i:s"));
+
+    // $start = date_create(date("Y-m-d H:i:s"));
+    // // $start = date_create('2021-07-14 15:39:20');
+    // $end = date_create($t1);
+
+    $start2 = strtotime(date("Y-m-d H:i:s"));
+    $end2 = strtotime($t1);
+    // $diff = date_diff($end, $start);
+    // var_dump($end2);
+    // var_dump($start2);
+    if ($end2 + 6 < $start2) {
+      // return;
+    } else {
+      $i = 1;
+      $ans = '';
+      $ans_ex = explode(',', $data['answer']);
+      $i = 0;
+      foreach ($ans_ex as $an) {
+        if ($i == 0) {
+          $i++;
+          $ans .= '"' . $an . '"';
+        } else {
+          $ans .= ',"' . $an . '"';
+        }
+      }
+      // var_dump($ans);
+      // die();
+      $this->ParameterModel->calculateScore($data, $data['generate_soal'], $ans);
+    }
+    // echo 'rest';
+    // die();
+
     // $data['point_mode'] = 'avg';
     $i = 1;
     $ans = '';

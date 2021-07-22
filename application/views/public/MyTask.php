@@ -203,12 +203,29 @@
 
             var renderData2 = [];
             Object.values(data).forEach((bank_soal) => {
+                if (bank_soal['id_mapel'] == '17') {
+                    skd_scores = bank_soal['score_arr'].split(",")
+                    tx = 'TIU : ' + skd_scores[0] + ' ' + (skd_scores[0] >= 80 ? span_status('lulus') : span_status('x')) +
+                        '<br>TWK : ' + skd_scores[1] + ' ' + (skd_scores[1] >= 65 ? span_status('lulus') : span_status('x')) +
+                        '<br>TKP : ' + skd_scores[2] + ' ' + (skd_scores[1] >= 156 ? span_status('lulus') : span_status('x')) + '<br>Total Score : ' + bank_soal['score'];
+
+                } else {
+                    tx = "Sroce : " + bank_soal['score'];
+                }
                 var button = `
                     <a class="btn btn-primary" href='<?= base_url() ?>my-task/${bank_soal['token']}'><i class='fa fa-arrow-circle-right '></i>  </a>
                 `;
-                renderData2.push([bank_soal['name_session_exam'], "Sroce : " + bank_soal['score'] + '<br> Benar : ' + bank_soal['benar'], bank_soal['start_time'], button]);
+                renderData2.push([bank_soal['name_session_exam'], tx + '<br> Benar : ' + bank_soal['benar'], bank_soal['start_time'], button]);
             });
             FDataTable2.clear().rows.add(renderData2).draw('full-hold');
+        }
+
+        function span_status(data) {
+            if (data == 'lulus') {
+                return '<i class="fa fa-check text-success"> Lulus </i>'
+            } else {
+                return '<i class="fa fa-times text-danger"> Tidak Lulus </i>'
+            }
         }
 
 

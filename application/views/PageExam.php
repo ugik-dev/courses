@@ -78,6 +78,9 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                 autosave = 0;
                 autosave_f();
             }
+            if (seconds_left < 2) {
+                auto_submit()
+            }
             seconds_left = seconds_left - 1;
             minutes = parseInt(seconds_left / 60);
             // minutes = parseInt('<?= $timer ?>');
@@ -98,6 +101,32 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
             confirmButtonText: "Ya!",
         };
 
+        function auto_submit() {
+            swal({
+                title: 'Timeout !!',
+                text: "waktu ujian telah berakhir harap tunggu ..",
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            })
+            $('#autosave').val('false');
+            // event.preventDefault();
+            return $.ajax({
+                url: `<?php echo site_url('PublicController/SubmitExam/') ?>`,
+                'type': 'POST',
+                data: ExamForm.form.serialize(),
+                success: function(data) {
+                    var json = JSON.parse(data);
+                    // if (json['error']) {
+                    //     return;
+                    // }
+                    location.reload();
+                },
+                error: function(e) {}
+            });
+        }
 
 
         $('#exam_form input:radio').click(function() {
@@ -113,6 +142,15 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                 if (!result.value) {
                     return;
                 }
+                swal({
+                    title: 'Submit',
+                    text: "Harap tunggu .. ",
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                })
                 $('#autosave').val('false');
                 event.preventDefault();
                 return $.ajax({
@@ -129,7 +167,6 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                     error: function(e) {}
                 });
             })
-
         });
 
         function autosave_f() {
@@ -138,6 +175,13 @@ $this->load->view('Fragment/HeaderFragment', ['title' => $title]);
                 url: `<?php echo site_url('PublicController/SubmitExam/') ?>`,
                 'type': 'POST',
                 data: ExamForm.form.serialize(),
+                success: function(data) {
+                    var json = JSON.parse(data);
+                    if (json['reload']) {
+                        // return;
+                        location.reload();
+                    }
+                },
             });
         }
     });
